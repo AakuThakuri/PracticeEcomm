@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 STATUS = (('active', 'active'), ('','default'))
 LABELS = (('new','new'),('hot','hot'),('sale','sale'),('','default'))
 STOCK = (('In Stock','In Stock'), ('Out of Stock', 'Out of Stock'))
@@ -10,6 +11,7 @@ class Category(models.Model):
 	slug = models.CharField(max_length = 500)
 	description = models.TextField(blank = True)
 	image = models.ImageField(upload_to = 'media')
+	status = models.CharField(choices = STATUS,max_length = 500 , blank = True)
 
 	def __str__(self):
 		return self.title
@@ -23,6 +25,11 @@ class Subcategory(models.Model):
 
 	def __str__(self):
 		return self.title
+
+	def get_subcat_url(self):
+		return reverse('home:subcategory',kwargs = {'slug':self.slug})
+
+		
 
 class Item(models.Model):
 	title = models.CharField(max_length = 500)
