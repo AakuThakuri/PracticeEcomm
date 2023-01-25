@@ -46,6 +46,13 @@ class Item(models.Model):
 	def __str__(self):
 		return self.title
 
+	def get_proview_url(self):
+		return reverse('home:product_detail' , kwargs = {'slug':self.slug})
+
+	def get_add_to_cart_url(self):
+		return reverse('cart:add_to_cart' , kwargs = {'slug':self.slug})	
+		
+
 class Ad(models.Model):
 	title = models.CharField(max_length = 500)
 	image = models.ImageField(upload_to = 'media')
@@ -72,11 +79,6 @@ class Contact(models.Model):
 
 	def __str__(self):
 		return self.title
-
-
-
-
-
 
 
 

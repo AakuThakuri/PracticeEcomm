@@ -3,14 +3,14 @@
   {% extends 'base.html' %}
   {% block content %}
   {% load static %}
-<div data-vide-bg="video/video">
+<div data-vide-bg="{% static 'video/video' %}">
     <div class="container">
 		<div class="banner-info">
 			<h3>It is a long established fact that a reader will be distracted by 
 			the readable </h3>	
 			<div class="search-form">
-				<form action="#" method="post">
-					<input type="text" placeholder="Search..." name="Search...">
+				<form action="{% url 'home:search' %}" method="GET">
+					<input type="text" placeholder="Search..." name="query">
 					<input type="submit" value=" " >
 				</form>
 			</div>		
@@ -55,7 +55,7 @@
 									</a>
 									<div class="mid-1">
 										<div class="women">
-											<h6><a href="single.html">{{item.title}}</h6>							
+											<h6><a href="{{item.get_proview_url}}">{{item.title}}</h6>							
 										</div>
 										<div class="mid-2">
 											<p ><label>$2.00</label><em class="item_price">$1.50</em></p>
@@ -65,7 +65,7 @@
 											<div class="clearfix"></div>
 										</div>
 										<div class="add">
-										   <button class="btn btn-danger my-cart-btn my-cart-b " data-id="1" data-name="Moong" data-summary="summary 1" data-price="1.50" data-quantity="1" data-image="images/of.png">Add to Cart</button>
+										   <a href="{{item.get_add_to_cart_url}}"><button class="btn btn-danger my-cart-btn my-cart-b " >Add to Cart</button></a>
 										</div>
 										
 									</div>
@@ -180,7 +180,7 @@
 									</a>
 									<div class="mid-1">
 										<div class="women">
-											<h6><a href="single.html">{{ item.title }}</a>(500 g)</h6>							
+											<h6><a href="{{item.get_proview_url}}">{{ item.title }}</a>(500 g)</h6>							
 										</div>
 										<div class="mid-2">
 											{% if item.discounted_price %}
@@ -199,7 +199,7 @@
 											<div class="clearfix"></div>
 										</div>
 											<div class="add add-2">
-										   <button class="btn btn-danger my-cart-btn my-cart-b" data-id="1" data-name="product 1" data-summary="summary 1" data-price="6.00" data-quantity="1" data-image="images/of16.png">Add to Cart</button>
+										  <a href="{{item.get_add_to_cart_url}}"> <button class="btn btn-danger my-cart-btn my-cart-b" >Add to Cart</button></a> 
 										</div>
 									</div>
 								</div>
