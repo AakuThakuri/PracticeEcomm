@@ -84,6 +84,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 					<li><a href="wishlist.html" ><i class="fa fa-heart" aria-hidden="true"></i>Wishlist</a></li>
 					<li><a href="about.html" ><i class="fa fa-file-text-o" aria-hidden="true"></i>Order History</a></li>
 					<li><a href="shipping.html" ><i class="fa fa-ship" aria-hidden="true"></i>Shipping</a></li>
+					<li><a href="/accounts/logout" ><i class="fa fa-user" aria-hidden="true"></i>Logout</a></li>
 {% else %}
 					
 					<li><a href="/accounts/login" ><i class="fa fa-user" aria-hidden="true"></i>Login</a></li>
@@ -155,14 +156,14 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 							{% endfor %}
 							
 							<li><a href="codes.html" class="hyper"> <span>Codes</span></a></li>
-							<li><a href="contact.html" class="hyper"><span>Contact Us</span></a></li>
+							<li><a href="/contact" class="hyper"><span>Contact Us</span></a></li>
 						</ul>
 					</div>
 					</nav>
-					 <div class="cart" >
+					 <a href="/cart/"><div class="cart" >
 					
-						<span class="fa fa-shopping-cart my-cart-icon"><span class="badge badge-notify my-cart-badge"></span></span>
-					</div>
+						<span class="fa fa-shopping-cart my-cart-icon"><font color="red">{{no_order}}</font></span>
+					</div></a>
 					<div class="clearfix"></div>
 				</div>
 					
@@ -194,7 +195,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 				<li><a href="care.html">Personal Care</a></li>
 				<li><a href="hold.html">Household</a></li>						 
 				<li><a href="codes.html">Short Codes</a></li> 
-				<li><a href="contact.html">Contact</a></li>
+				<li><a href="/contact ">Contact</a></li>
 			</ul>
 		</div>
 		<div class="col-md-3 footer-grid ">

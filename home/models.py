@@ -72,6 +72,16 @@ class Slider(models.Model):
 	def __str__(self):
 		return self.title
 
+class Information(models.Model):
+	address = models.CharField(max_length = 500)
+	
+	phone = models.CharField(max_length = 100)
+	
+	email = models.EmailField(max_length = 500)
+
+	def __str__(self):
+		return self.address		
+
 class Contact(models.Model):
 	name = models.CharField(max_length = 500)
 	email = models.EmailField(max_length = 500)

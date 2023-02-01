@@ -12,14 +12,32 @@ def cart(request,slug):
 	if Cart.objects.filter(slug = slug).exists():
 		quantity = Cart.objects.get(slug = slug).quantity
 		quantity = quantity +1
-		Cart.objects.filter(slug = slug).update(quantity = quantity)
+		if Item.objects.filter(slug = slug).exists():
+			price = Item.objects.get(slug = slug).price
+			discounted_price = Item.objects.get(slug = slug).discounted_price
+			if discounted_price >0:
+				total = discounted_price * quantity
+			else:
+				total = price * quantity
+				
+		Cart.objects.filter(slug = slug).update(quantity = quantity , total = total)
 
 	else:
-		username = request.user
+		price = Item.objects.get(slug = slug).price
+		discounted_price = Item.objects.get(slug = slug).discounted_price
+		if discounted_price >0:
+			total = discounted_price
+		else:
+			total = price
+		username = request.user			
+		
+		
+			
 		data = Cart.objects.create(
 			user = username,
 			slug = slug,
-			items = Item.objects.filter(slug = slug)[0]
+			items = Item.objects.filter(slug = slug)[0],
+			total = total
 			)
 		data.save()
 	return redirect('/cart/')	
@@ -28,9 +46,16 @@ def cart(request,slug):
 def removecart(request,slug):
 	if Cart.objects.filter(slug = slug,user = request.user,checkout =False).exists():
 		quantity = Cart.objects.get(slug = slug).quantity
+		price = Item.objects.get(slug = slug).price
+		discounted_price = Item.objects.get(slug = slug).discounted_price
+			
 		if quantity >1:
 			quantity = quantity -1
-			Cart.objects.filter(slug = slug,user = request.user,checkout =False).update(quantity = quantity)
+			if discounted_price >0:
+				total = discounted_price * quantity
+			else:
+				total = price * quantity
+			Cart.objects.filter(slug = slug,user = request.user,checkout =False).update(quantity = quantity, total = total)	
 		    
 		else:
 			pass
@@ -40,4 +65,8 @@ def deletecart(request,slug):
 	if Cart.objects.filter(slug = slug,user = request.user,checkout =False).exists():
 		
 		Cart.objects.filter(slug = slug,user = request.user,checkout =False).delete()
-	return redirect('/cart/')			
+	return redirect('/cart/')
+
+
+
+				
